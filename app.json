@@ -1,0 +1,12 @@
+{
+  "name": "MyProjectAndroid",
+  "displayName": "MyProjectAndroid",
+  "expo": {
+    "name": "MyProjectAndroid",
+    "slug": "MyProjectAndroid",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

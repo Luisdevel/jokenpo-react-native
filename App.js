@@ -1,62 +1,147 @@
-import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import React, { Component, useState } from 'react';
+import { Text, View, Button, StyleSheet } from 'react-native';
 
-const randomPhrases = () => {
-  let randomNumbers = Math.random();
-  randomNumbers = Math.floor(randomNumbers * 5);
+import Top from './src/components/topo';
+import Icone from './src/components/icone';
 
-  // Phrases
-  const prhases = [
-    'Enfrente os problemas e leve a melhor! Levanta, sacode a poeira, dá a volta por cima.',
-    'Dê mais atenção ao que você tem de bom na sua vida.',
-    'Para chegar ao topo, o que importa é começar!',
-    'De nada adianta ter sonhos, se você não se empenhar em correr atrás.',
-    'Você pode, corra atrás!',
-  ];
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-  const changePrhase = prhases[randomNumbers];
+    this.state = { escolhaUsuario: '', escolhaComputador: '', resultado: '' };
+  }
 
-  Alert.alert(null, changePrhase);
-};
+  jokenpo(escolhaUsuario) {
+    // gera número aleatório ( 0, 1, 2)
+    const numAleatorio = Math.floor(Math.random() * 3);
 
-const App = () => (
-  <View style={styles.container}>
-    <StatusBar
-      translucent
-      backgroundColor="transparent"
-      barStyle="dark-content"
-    />
-    <Image source={require('./images/logo.png')} />
+    let escolhaComputador = '';
 
-    <TouchableOpacity style={styles.btn} onPress={randomPhrases}>
-      <Text style={styles.textStyle}>Nova frase</Text>
-    </TouchableOpacity>
-  </View>
-);
+    switch (numAleatorio) {
+      case 0:
+        escolhaComputador = 'pedra';
+        break;
+      case 1:
+        escolhaComputador = 'papel';
+        break;
+      case 2:
+        escolhaComputador = 'tesoura';
+        break;
+    }
+
+    let resultado = '';
+
+    if (escolhaComputador === 'pedra') {
+      if (escolhaUsuario === 'pedra') {
+        resultado = 'Empate';
+      }
+
+      if (escolhaUsuario === 'papel') {
+        resultado = 'Você ganhou';
+      }
+
+      if (escolhaUsuario === 'tesoura') {
+        resultado = 'Computador ganhou';
+      }
+    }
+
+    if (escolhaComputador === 'papel') {
+      if (escolhaUsuario === 'papel') {
+        resultado = 'Empate';
+      }
+
+      if (escolhaUsuario === 'tesoura') {
+        resultado = 'Você ganhou';
+      }
+
+      if (escolhaUsuario === 'pedra') {
+        resultado = 'Computador ganhou';
+      }
+    }
+
+    if (escolhaComputador === 'tesoura') {
+      if (escolhaUsuario === 'tesoura') {
+        resultado = 'Empate';
+      }
+
+      if (escolhaUsuario === 'pedra') {
+        resultado = 'Você ganhou';
+      }
+
+      if (escolhaUsuario === 'papel') {
+        resultado = 'Computador ganhou';
+      }
+    }
+
+    this.setState({
+      escolhaUsuario,
+      escolhaComputador,
+      resultado,
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <Top />
+
+        <View style={styles.actionsPainel}>
+          <View style={styles.changeBTN}>
+            <Button
+              title="pedra"
+              onPress={() => {
+                this.jokenpo('pedra');
+              }}
+            />
+          </View>
+
+          <View style={styles.changeBTN}>
+            <Button
+              title="papel"
+              onPress={() => {
+                this.jokenpo('papel');
+              }}
+            />
+          </View>
+
+          <View style={styles.changeBTN}>
+            <Button
+              title="tesoura"
+              onPress={() => {
+                this.jokenpo('tesoura');
+              }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.palco}>
+          <Text style={styles.txtResult}>{this.state.resultado}</Text>
+
+          <Icone change={this.state.escolhaComputador} play="Computador" />
+          <Icone change={this.state.escolhaUsuario} play="Você" />
+        </View>
+      </View>
+    );
+  }
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  changeBTN: {
+    width: 90,
   },
-  btn: {
-    backgroundColor: '#538530',
-    paddingVertical: 10,
-    paddingHorizontal: 40,
+  actionsPainel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 10,
   },
-  textStyle: {
-    fontSize: 16,
+  palco: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  txtResult: {
+    fontSize: 25,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'red',
   },
 });
 

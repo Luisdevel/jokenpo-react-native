@@ -30,6 +30,7 @@ module.exports = {
     'react/static-property-placement': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
+    'react/prefer-stateless-function': 'off',
     'no-param-reassign': 'off',
     'no-console': 'off',
     'no-use-before-define': 'off',
@@ -37,5 +38,10 @@ module.exports = {
     'global-require': 'off',
     'no-alert': 'off',
     'no-undef': 'off',
+    'max-classes-per-file': 'off',
+    'react/destructuring-assignment': 'off',
+    'react/no-unused-state': 'off',
+    'default-case': 'off',
+    'react/jsx-no-undef': 'off',
   },
 };
